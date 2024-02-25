@@ -1,4 +1,4 @@
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap'
 import React, { useState } from 'react';
 const API_KEY = 'd8d640a04baf48b6a1f25947242502';
 
@@ -30,30 +30,49 @@ export default function Weather() {
     };
 
     return (
-        <div className="container">
-            <h1 className="mt-4">Weather App</h1>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formCity">
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter city name"
-                        value={city}
-                        onChange={handleChange}
-                    />
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                    Get Weather
-                </Button>
-            </Form>
-            {error && <p className="mt-3 text-danger">{error}</p>}
-            {weatherData && (
-                <div className="mt-4">
-                    <h2>{weatherData.location.name}, {weatherData.location.country}</h2>
-                    <p>Temperature: {weatherData.current.temp_c}°C</p>
-                    <p>Condition: {weatherData.current.condition.text}</p>
-                    <img src={weatherData.current.condition.icon} alt="Weather icon" />
-                </div>
+        <Container className="mt-5">
+            <h1 className="text-center mb-4">Weather App</h1>
+
+            
+            <Row className="justify-content-center">
+                <Col md={6}>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="formCity">
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter city name"
+                                value={city}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                        <Button variant="primary" type="submit" block>
+                            Get Weather
+                        </Button>
+                    </Form>
+                </Col>
+            </Row>
+            {error && (
+                <Row className="justify-content-center">
+                    <Col md={6}>
+                        <Alert variant="danger" className="mt-3">
+                            {error}
+                        </Alert>
+                    </Col>
+                </Row>
             )}
-        </div>
+            {weatherData && (
+                <Row className="justify-content-center mt-4">
+                    <Col md={6}>
+                        <div className="text-center">
+                            <h2>{weatherData.location.name}, {weatherData.location.country}</h2>
+                            <p>Temperature: {weatherData.current.temp_c}°C</p>
+                            <p>Condition: {weatherData.current.condition.text}</p>
+                            <img src={weatherData.current.condition.icon} alt="Weather icon" />
+                        </div>
+                    </Col>
+                </Row>
+            )}
+        </Container>
     )
 }
+
